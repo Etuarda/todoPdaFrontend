@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TodoPDA — Crónica de Produtividade</title>
+    <title>Lembretes — Crónica de Produtividade</title>
     <meta name="description" content="TodoPDA — Crónica de Produtividade. Frontend estático com autenticação JWT e CRUD de tarefas." />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
 
@@ -33,7 +33,7 @@
     <header class="site-header" role="banner">
         <div class="site-header__inner">
             <h1 class="brand" aria-label="TodoPDA — Crónica de Produtividade">
-                <span class="brand__name">TodoPDA</span>
+                <span class="brand__name">Lembretes</span>
                 <span class="brand__tag">Crónica de Produtividade</span>
             </h1>
 
@@ -111,36 +111,38 @@
         </section>
     </main>
 
-    <div id="task-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title" aria-describedby="task-modal-desc" hidden>
+    <div id="task-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title" hidden>
         <div class="modal__panel" role="document">
             <header class="modal__header">
-                <p class="editorial-label" id="task-modal-desc">Registro editorial</p>
-                <h3 id="task-modal-title" class="headline headline--sm">Nova entrada</h3>
-                <button type="button" class="iconbtn" data-modal-close aria-label="Fechar modal">×</button>
+                <div>
+                    <p class="editorial-label">Edição</p>
+                    <h3 id="task-modal-title" class="headline headline--sm">Nova entrada</h3>
+                </div>
+                <button type="button" class="iconbtn" data-modal-close aria-label="Fechar">×</button>
             </header>
 
-            <form id="task-form" class="form" novalidate>
-                <input type="hidden" id="task-id" />
+            <form id="task-form" novalidate>
+                <div class="modal__body">
+                    <input type="hidden" id="task-id" />
+                    
+                    <div class="field">
+                        <label class="label" for="task-titulo">O que registrar?</label>
+                        <input class="input" id="task-titulo" type="text" required maxlength="120" placeholder="Título da demanda..." />
+                    </div>
 
-                <div class="field">
-                    <label class="label" for="task-titulo">Título</label>
-                    <input class="input" id="task-titulo" type="text" required maxlength="120" />
-                    <p class="hint">Obrigatório. Até 120 caracteres.</p>
-                </div>
+                    <div class="field">
+                        <label class="label" for="task-status">Etapa atual</label>
+                        <select class="input" id="task-status">
+                            <option value="a fazer">Pendente</option>
+                            <option value="em andamento">Em execução</option>
+                            <option value="concluída">Concluída</option>
+                        </select>
+                    </div>
 
-                <div class="field">
-                    <label class="label" for="task-status">Etapa</label>
-                    <select class="input" id="task-status">
-                        <option value="a fazer">Pendente</option>
-                        <option value="em andamento">Em execução</option>
-                        <option value="concluída">Concluída</option>
-                    </select>
-                    <p class="hint">O status é exibido como texto (não depende só de cor).</p>
-                </div>
-
-                <div class="field">
-                    <label class="label" for="task-descricao">Observações</label>
-                    <textarea class="input" id="task-descricao" rows="4" maxlength="1000" placeholder="Detalhes opcionais..."></textarea>
+                    <div class="field">
+                        <label class="label" for="task-descricao">Notas complementares</label>
+                        <textarea class="input" id="task-descricao" rows="3" maxlength="1000" placeholder="Detalhes opcionais..."></textarea>
+                    </div>
                 </div>
 
                 <div class="modal__actions">
@@ -151,18 +153,18 @@
         </div>
     </div>
 
-    <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc" hidden>
+    <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title" hidden>
         <div class="modal__panel modal__panel--danger" role="document">
             <header class="modal__header">
-                <p class="editorial-label">Atenção</p>
-                <h3 id="confirm-title" class="headline headline--sm">Excluir registro?</h3>
-                <button type="button" class="iconbtn" data-modal-close aria-label="Fechar modal">×</button>
+                <div>
+                    <p class="editorial-label" style="color: var(--danger)">Aviso</p>
+                    <h3 id="confirm-title" class="headline headline--sm">Remover?</h3>
+                </div>
+                <button type="button" class="iconbtn" data-modal-close>×</button>
             </header>
 
             <div class="modal__body">
-                <p id="confirm-desc" class="muted">
-                    Esta ação é permanente e removerá a entrada da sua crônica.
-                </p>
+                <p class="muted">Esta ação é permanente e removerá este registro da sua crônica.</p>
             </div>
 
             <div class="modal__actions">
@@ -173,7 +175,7 @@
     </div>
 
     <footer class="site-footer">
-        <p class="muted">Frontend estático • JWT • WCAG 2.2</p>
+        <p class="muted">Desenvolvido por Eduarda Silva Santos</p>
     </footer>
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
