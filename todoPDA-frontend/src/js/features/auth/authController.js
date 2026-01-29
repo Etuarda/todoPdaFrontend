@@ -11,11 +11,12 @@ export function createAuthController(deps) {
 
   const validate = (payload) => {
     const errors = [];
-    if (mode === "register") {
-      if (!payload.nome || payload.nome.trim().length < 2) errors.push("Informe seu nome (mínimo 2 caracteres).");
+    if (!payload.email || !payload.email.includes("@")) {
+      errors.push("Informe um e-mail válido.");
     }
-    if (!payload.email || !payload.email.includes("@")) errors.push("Informe um e-mail válido.");
-    if (!payload.senha || payload.senha.length < 4) errors.push("Sua chave de acesso deve ter pelo menos 4 caracteres.");
+    if (!payload.senha || payload.senha.length < 4) {
+      errors.push("Sua chave de acesso deve ter pelo menos 4 caracteres.");
+    }
     return errors;
   };
 
@@ -31,7 +32,6 @@ export function createAuthController(deps) {
     e.preventDefault();
 
     const payload = {
-      nome: authView.els.inputNome().value.trim(),
       email: authView.els.inputEmail().value.trim(),
       senha: authView.els.inputSenha().value
     };
@@ -44,8 +44,8 @@ export function createAuthController(deps) {
 
     try {
       const data = mode === "login"
-        ? await authService.login({ email: payload.email, senha: payload.senha })
-        : await authService.register({ nome: payload.nome, email: payload.email, senha: payload.senha });
+        ? await authService.login(payload)
+        : await authService.register(payload);
 
       const session = { user: data.user, token: data.token };
       storage.setSession(session);

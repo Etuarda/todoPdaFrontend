@@ -1,195 +1,182 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TodoPDA — Crónica de Produtividade</title>
-  <meta name="description" content="TodoPDA — Crónica de Produtividade. Frontend estático com autenticação JWT e CRUD de tarefas." />
-  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TodoPDA — Crónica de Produtividade</title>
+    <meta name="description" content="TodoPDA — Crónica de Produtividade. Frontend estático com autenticação JWT e CRUD de tarefas." />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="./src/styles/tokens.css" />
-  <link rel="stylesheet" href="./src/styles/base.css" />
-  <link rel="stylesheet" href="./src/styles/layout.css" />
-  <link rel="stylesheet" href="./src/styles/components.css" />
-  <link rel="stylesheet" href="./src/styles/a11y.css" />
+    <link rel="stylesheet" href="./src/styles/tokens.css" />
+    <link rel="stylesheet" href="./src/styles/base.css" />
+    <link rel="stylesheet" href="./src/styles/layout.css" />
+    <link rel="stylesheet" href="./src/styles/components.css" />
+    <link rel="stylesheet" href="./src/styles/a11y.css" />
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
+    <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
 
-  <!-- Região de alertas/toasts -->
-  <div id="app-alert" class="alert-host" aria-live="polite" aria-atomic="true"></div>
+    <div id="app-alert" class="alert-host" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- VLibras (padrão oficial) -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
     </div>
-  </div>
 
-  <header class="site-header" role="banner">
-    <div class="site-header__inner">
-      <h1 class="brand" aria-label="TodoPDA — Crónica de Produtividade">
-        <span class="brand__name">TodoPDA</span>
-        <span class="brand__tag">Crónica de Produtividade</span>
-      </h1>
+    <header class="site-header" role="banner">
+        <div class="site-header__inner">
+            <h1 class="brand" aria-label="TodoPDA — Crónica de Produtividade">
+                <span class="brand__name">TodoPDA</span>
+                <span class="brand__tag">Crónica de Produtividade</span>
+            </h1>
 
-      <div class="header-actions" id="header-actions" hidden>
-        <button id="hc-toggle" class="btn btn-secondary" type="button" aria-pressed="false" aria-label="Alternar alto contraste e baixa visão">
-          <span aria-hidden="true" class="icon">◐</span>
-          <span class="btn__text">Baixa visão</span>
-        </button>
+            <div class="header-actions" id="header-actions" hidden>
+                <button id="hc-toggle" class="btn btn-secondary" type="button" aria-pressed="false" aria-label="Alternar alto contraste e baixa visão">
+                    <span aria-hidden="true" class="icon">◐</span>
+                    <span class="btn__text">Baixa visão</span>
+                </button>
 
-        <button id="logout-btn" class="btn btn-secondary" type="button" aria-label="Sair da sessão">
-          <span aria-hidden="true" class="icon">⎋</span>
-          <span class="btn__text">Sair</span>
-        </button>
-      </div>
+                <button id="logout-btn" class="btn btn-secondary" type="button" aria-label="Sair da sessão">
+                    <span aria-hidden="true" class="icon">⎋</span>
+                    <span class="btn__text">Sair</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main" class="site-main" tabindex="-1">
+        <section id="auth-view" class="view" aria-labelledby="auth-title">
+            <article class="card auth-card">
+                <header class="card__header">
+                    <p class="editorial-label">Acesso Editorial</p>
+                    <h2 id="auth-title" class="headline">Entrar</h2>
+                    <p class="muted" id="auth-subtitle">Use seu e-mail e sua chave de acesso.</p>
+                </header>
+
+                <form id="auth-form" class="form" novalidate>
+                    <div class="field">
+                        <label class="label" for="auth-email">E-mail</label>
+                        <input class="input" id="auth-email" name="email" type="email" autocomplete="email" required placeholder="exemplo@email.com" />
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="auth-senha">Chave de acesso</label>
+                        <input class="input" id="auth-senha" name="senha" type="password" autocomplete="current-password" required placeholder="••••••••" />
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="auth-submit" type="submit">Entrar no sistema</button>
+                </form>
+
+                <div class="card__footer">
+                    <button id="auth-toggle" type="button" class="linklike">
+                        Criar nova crônica
+                    </button>
+                </div>
+            </article>
+        </section>
+
+        <section id="app-view" class="view" hidden aria-labelledby="app-title">
+            <header class="dashboard-header">
+                <div>
+                    <p class="editorial-label">Edição corrente</p>
+                    <h2 id="app-title" class="headline">Crônica</h2>
+                    <p class="muted" id="task-counter">0 registros</p>
+                </div>
+
+                <div class="toolbar">
+                    <div class="toolbar__filters" role="group" aria-label="Filtros de status">
+                        <button class="chip is-active" type="button" data-filter="all">Tudo</button>
+                        <button class="chip" type="button" data-filter="a fazer">Pendentes</button>
+                        <button class="chip" type="button" data-filter="em andamento">Em execução</button>
+                        <button class="chip" type="button" data-filter="concluída">Finalizado</button>
+                    </div>
+
+                    <button id="task-create" class="btn btn-primary" type="button">
+                        <span aria-hidden="true" class="icon">＋</span>
+                        Nova entrada
+                    </button>
+                </div>
+            </header>
+
+            <section aria-label="Lista de tarefas">
+                <div id="tasks-container" class="task-grid" role="list"></div>
+            </section>
+        </section>
+    </main>
+
+    <div id="task-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title" aria-describedby="task-modal-desc" hidden>
+        <div class="modal__panel" role="document">
+            <header class="modal__header">
+                <p class="editorial-label" id="task-modal-desc">Registro editorial</p>
+                <h3 id="task-modal-title" class="headline headline--sm">Nova entrada</h3>
+                <button type="button" class="iconbtn" data-modal-close aria-label="Fechar modal">×</button>
+            </header>
+
+            <form id="task-form" class="form" novalidate>
+                <input type="hidden" id="task-id" />
+
+                <div class="field">
+                    <label class="label" for="task-titulo">Título</label>
+                    <input class="input" id="task-titulo" type="text" required maxlength="120" />
+                    <p class="hint">Obrigatório. Até 120 caracteres.</p>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="task-status">Etapa</label>
+                    <select class="input" id="task-status">
+                        <option value="a fazer">Pendente</option>
+                        <option value="em andamento">Em execução</option>
+                        <option value="concluída">Concluída</option>
+                    </select>
+                    <p class="hint">O status é exibido como texto (não depende só de cor).</p>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="task-descricao">Observações</label>
+                    <textarea class="input" id="task-descricao" rows="4" maxlength="1000" placeholder="Detalhes opcionais..."></textarea>
+                </div>
+
+                <div class="modal__actions">
+                    <button class="btn btn-secondary" type="button" data-modal-close>Cancelar</button>
+                    <button class="btn btn-primary" type="submit" id="task-submit">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </header>
 
-  <main id="main" class="site-main" tabindex="-1">
-    <!-- AUTH VIEW -->
-    <section id="auth-view" class="view" aria-labelledby="auth-title">
-      <article class="card auth-card">
-        <header class="card__header">
-          <p class="editorial-label">Acesso Editorial</p>
-          <h2 id="auth-title" class="headline">Entrar</h2>
-          <p class="muted" id="auth-subtitle">Use seu e-mail e sua chave de acesso.</p>
-        </header>
+    <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc" hidden>
+        <div class="modal__panel modal__panel--danger" role="document">
+            <header class="modal__header">
+                <p class="editorial-label">Atenção</p>
+                <h3 id="confirm-title" class="headline headline--sm">Excluir registro?</h3>
+                <button type="button" class="iconbtn" data-modal-close aria-label="Fechar modal">×</button>
+            </header>
 
-        <form id="auth-form" class="form" novalidate>
-          <div class="field" id="field-nome" hidden>
-            <label class="label" for="auth-nome">Nome completo</label>
-            <input class="input" id="auth-nome" name="nome" type="text" autocomplete="name" />
-            <p class="hint" id="hint-nome">Obrigatório para criar conta.</p>
-          </div>
+            <div class="modal__body">
+                <p id="confirm-desc" class="muted">
+                    Esta ação é permanente e removerá a entrada da sua crônica.
+                </p>
+            </div>
 
-          <div class="field">
-            <label class="label" for="auth-email">E-mail</label>
-            <input class="input" id="auth-email" name="email" type="email" autocomplete="email" required />
-          </div>
-
-          <div class="field">
-            <label class="label" for="auth-senha">Chave de acesso</label>
-            <input class="input" id="auth-senha" name="senha" type="password" autocomplete="current-password" required />
-          </div>
-
-          <button class="btn btn-primary btn-block" id="auth-submit" type="submit">Entrar no sistema</button>
-        </form>
-
-        <div class="card__footer">
-          <button id="auth-toggle" type="button" class="linklike">
-            Criar nova crônica
-          </button>
+            <div class="modal__actions">
+                <button class="btn btn-secondary" type="button" data-modal-close>Voltar</button>
+                <button class="btn btn-danger" type="button" id="confirm-delete">Eliminar</button>
+            </div>
         </div>
-      </article>
-    </section>
-
-    <!-- DASHBOARD VIEW -->
-    <section id="app-view" class="view" hidden aria-labelledby="app-title">
-      <header class="dashboard-header">
-        <div>
-          <p class="editorial-label">Edição corrente</p>
-          <h2 id="app-title" class="headline">Crônica</h2>
-          <p class="muted" id="task-counter">0 registros</p>
-        </div>
-
-        <div class="toolbar">
-          <div class="toolbar__filters" role="group" aria-label="Filtros de status">
-            <button class="chip is-active" type="button" data-filter="all">Tudo</button>
-            <button class="chip" type="button" data-filter="a fazer">Pendentes</button>
-            <button class="chip" type="button" data-filter="em andamento">Em execução</button>
-            <button class="chip" type="button" data-filter="concluída">Finalizado</button>
-          </div>
-
-          <button id="task-create" class="btn btn-primary" type="button">
-            <span aria-hidden="true" class="icon">＋</span>
-            Nova entrada
-          </button>
-        </div>
-      </header>
-
-      <section aria-label="Lista de tarefas">
-        <div id="tasks-container" class="task-grid" role="list"></div>
-      </section>
-    </section>
-  </main>
-
-  <!-- Modal: criar/editar tarefa -->
-  <div id="task-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title" aria-describedby="task-modal-desc" hidden>
-    <div class="modal__panel" role="document">
-      <header class="modal__header">
-        <p class="editorial-label" id="task-modal-desc">Registro editorial</p>
-        <h3 id="task-modal-title" class="headline headline--sm">Nova entrada</h3>
-        <button type="button" class="iconbtn" data-modal-close aria-label="Fechar modal">×</button>
-      </header>
-
-      <form id="task-form" class="form" novalidate>
-        <input type="hidden" id="task-id" />
-
-        <div class="field">
-          <label class="label" for="task-titulo">Título</label>
-          <input class="input" id="task-titulo" type="text" required maxlength="120" />
-          <p class="hint">Obrigatório. Até 120 caracteres.</p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="task-status">Etapa</label>
-          <select class="input" id="task-status">
-            <option value="a fazer">Pendente</option>
-            <option value="em andamento">Em execução</option>
-            <option value="concluída">Concluída</option>
-          </select>
-          <p class="hint">O status é exibido como texto (não depende só de cor).</p>
-        </div>
-
-        <div class="field">
-          <label class="label" for="task-descricao">Observações</label>
-          <textarea class="input" id="task-descricao" rows="4" maxlength="1000" placeholder="Detalhes opcionais..."></textarea>
-        </div>
-
-        <div class="modal__actions">
-          <button class="btn btn-secondary" type="button" data-modal-close>Cancelar</button>
-          <button class="btn btn-primary" type="submit" id="task-submit">Salvar</button>
-        </div>
-      </form>
     </div>
-  </div>
 
-  <!-- Modal: confirmar exclusão -->
-  <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc" hidden>
-    <div class="modal__panel modal__panel--danger" role="document">
-      <header class="modal__header">
-        <p class="editorial-label">Atenção</p>
-        <h3 id="confirm-title" class="headline headline--sm">Excluir registro?</h3>
-        <button type="button" class="iconbtn" data-modal-close aria-label="Fechar modal">×</button>
-      </header>
+    <footer class="site-footer">
+        <p class="muted">Frontend estático • JWT • WCAG 2.2</p>
+    </footer>
 
-      <div class="modal__body">
-        <p id="confirm-desc" class="muted">
-          Esta ação é permanente e removerá a entrada da sua crônica.
-        </p>
-      </div>
-
-      <div class="modal__actions">
-        <button class="btn btn-secondary" type="button" data-modal-close>Voltar</button>
-        <button class="btn btn-danger" type="button" id="confirm-delete">Eliminar</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="site-footer">
-    <p class="muted">Frontend estático • JWT • WCAG 2.2</p>
-  </footer>
-
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script type="module" src="./src/js/main.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script type="module" src="./src/js/main.js"></script>
 </body>
 </html>
