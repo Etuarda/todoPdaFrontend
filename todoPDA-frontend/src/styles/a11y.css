@@ -1,0 +1,38 @@
+.skip-link{
+  position:absolute;
+  top:0;
+  left:0;
+  transform: translateY(-120%);
+  background: var(--paper-light);
+  border: 2px solid var(--border);
+  border-radius: 0 0 var(--radius-md) 0;
+  padding: 0.75rem 1rem;
+  z-index: 2000;
+}
+.skip-link:focus{ transform: translateY(0); }
+
+:focus-visible{
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Não depender só de cor: reforço textual e estados */
+[data-status="a fazer"] .status-btn{ border-color: var(--border); }
+[data-status="em andamento"] .status-btn{ background: var(--accent); border-color: var(--accent); color: var(--paper-light); }
+[data-status="concluída"] .status-btn{ background: var(--success); border-color: var(--success); color: #fff; }
+
+.sr-only{
+  position:absolute !important;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border:0;
+}
