@@ -35,7 +35,6 @@ const toggleVision = () => {
   const next = storage.getVision() === "high" ? "default" : "high";
   storage.setVision(next);
   applyVision();
-  alert.show(next === "high" ? "Modo baixa visão ativado." : "Modo baixa visão desativado.");
 };
 
 const initVlibras = () => {
