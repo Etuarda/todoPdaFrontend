@@ -153,26 +153,22 @@
         </div>
     </div>
 
-    <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title" hidden>
-        <div class="modal__panel modal__panel--danger" role="document">
-            <header class="modal__header">
-                <div>
-                    <p class="editorial-label" style="color: var(--danger)">Aviso</p>
-                    <h3 id="confirm-title" class="headline headline--sm">Remover?</h3>
-                </div>
-                <button type="button" class="iconbtn" data-modal-close>×</button>
-            </header>
-
-            <div class="modal__body">
-                <p class="muted">Esta ação é permanente e removerá este registro da sua crônica.</p>
-            </div>
-
-            <div class="modal__actions">
-                <button class="btn btn-secondary" type="button" data-modal-close>Voltar</button>
-                <button class="btn btn-danger" type="button" id="confirm-delete">Eliminar</button>
-            </div>
+    <div id="confirm-modal" class="modal" role="dialog" aria-modal="true" hidden>
+    <div class="modal__panel modal__panel--danger" role="document">
+        <div class="modal__body" style="padding-top: var(--space-6); text-align: center;">
+            <div style="font-size: 1.8rem; margin-bottom: var(--space-2);"></div>
+            <h3 id="confirm-title" class="headline headline--sm" style="font-size: 1.1rem; margin-bottom: 0.5rem;">Remover nota?</h3>
+            <p class="muted" style="font-size: 0.85rem; line-height: 1.4;">
+                Esta ação é definitiva e apagará este registro do seu monitor.
+            </p>
+        </div>
+        <div class="modal__actions" style="padding-top: var(--space-4);">
+            <button class="btn btn-secondary" type="button" data-modal-close>Manter</button>
+            <button class="btn btn-danger" type="button" id="confirm-delete">Apagar</button>
         </div>
     </div>
+</div>
+
 
     <footer class="site-footer">
         <p class="muted">Desenvolvido por Eduarda Silva Santos</p>

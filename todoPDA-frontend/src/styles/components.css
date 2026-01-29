@@ -197,3 +197,19 @@ textarea.input { resize: vertical; min-height: 6rem; }
   letter-spacing: 0.18em; font-size: 0.58rem;
   box-shadow: var(--shadow-2);
 }
+
+/* Painel de Perigo (Delete) */
+.modal__panel--danger {
+  border-top: 4px solid var(--danger) !important;
+  max-width: 320px; /* Ainda menor que o de criação */
+}
+
+/* Garante que os botões dentro deste modal tenham o peso visual correto */
+.modal__panel--danger .modal__actions .btn-secondary {
+  border-color: var(--border);
+}
+
+.modal__panel--danger .modal__actions .btn-danger {
+  background-color: var(--danger);
+  color: #fff;
+}
