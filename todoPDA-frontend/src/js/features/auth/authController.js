@@ -67,11 +67,14 @@ export function createAuthController(deps) {
     }
   };
 
-  const mount = () => {
-    authView.setMode(mode);
+// Dentro da função createAuthController(deps)
+const mount = () => {
+    // Garante que ao iniciar, o modo seja 'login' (escondendo o nome)
+    authView.setMode("login"); 
+    
     authView.els.toggle().addEventListener("click", onToggle);
     authView.els.form().addEventListener("submit", onSubmit);
-  };
+};
 
   return { mount };
 }
