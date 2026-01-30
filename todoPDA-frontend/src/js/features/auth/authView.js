@@ -9,7 +9,10 @@ export const authView = {
     toggle: () => $("#auth-toggle"),
     submit: () => $("#auth-submit"),
     inputEmail: () => $("#auth-email"),
-    inputSenha: () => $("#auth-senha")
+    inputSenha: () => $("#auth-senha"),
+    // Novos elementos:
+    fieldNome: () => $("#field-nome"),
+    inputNome: () => $("#auth-nome")
   },
 
   /**
@@ -20,9 +23,13 @@ export const authView = {
     this.els.title().textContent = isLogin ? "Entrar" : "Criar conta";
     this.els.subtitle().textContent = isLogin 
       ? "Use seu e-mail e sua chave de acesso." 
-      : "Cadastre um e-mail e uma chave de acesso.";
+      : "Cadastre um nome, e-mail e uma chave de acesso.";
     this.els.submit().textContent = isLogin ? "Entrar no sistema" : "Finalizar registro";
     this.els.toggle().textContent = isLogin ? "Criar nova crônica" : "Já possuo conta";
+    
+    // Mostra o campo nome apenas se não for login
+    setHidden(this.els.fieldNome(), isLogin);
+    this.els.inputNome().toggleAttribute("required", !isLogin);
   },
 
   resetForm() {

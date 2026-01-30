@@ -3,14 +3,17 @@ import * as authService from "./authService.js";
 import { storage } from "../../storage.js";
 import { alert } from "../../ui/alert.js";
 
-/**
- * @param {{ onAuthenticated: () => void }} deps
- */
 export function createAuthController(deps) {
   let mode = /** @type {"login"|"register"} */ ("login");
 
   const validate = (payload) => {
     const errors = [];
+    
+    // Validação do nome adicionada para o modo registro
+    if (mode === "register" && (!payload.nome || payload.nome.trim().length < 2)) {
+      errors.push("Por favor, informe seu nome.");
+    }
+    
     if (!payload.email || !payload.email.includes("@")) {
       errors.push("Informe um e-mail válido.");
     }
@@ -24,14 +27,19 @@ export function createAuthController(deps) {
     mode = mode === "login" ? "register" : "login";
     authView.setMode(mode);
     authView.resetForm();
-    authView.els.inputEmail().focus();
+    // Se for registro, foca no nome, se for login, foca no e-mail
+    if (mode === "register") {
+        authView.els.inputNome().focus();
+    } else {
+        authView.els.inputEmail().focus();
+    }
   };
 
-  /** @param {SubmitEvent} e */
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
+      nome: authView.els.inputNome().value.trim(), // Adicionado ao payload
       email: authView.els.inputEmail().value.trim(),
       senha: authView.els.inputSenha().value
     };
@@ -43,8 +51,9 @@ export function createAuthController(deps) {
     }
 
     try {
+      // O authService.register já aceita payload com nome no seu arquivo original
       const data = mode === "login"
-        ? await authService.login(payload)
+        ? await authService.login({ email: payload.email, senha: payload.senha })
         : await authService.register(payload);
 
       const session = { user: data.user, token: data.token };

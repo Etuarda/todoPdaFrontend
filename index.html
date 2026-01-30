@@ -66,22 +66,29 @@
                 </header>
 
                 <form id="auth-form" class="form" novalidate>
-                    <div class="field">
-                        <label class="label" for="auth-email">E-mail</label>
-                        <input class="input" id="auth-email" name="email" type="email" autocomplete="email" required placeholder="exemplo@email.com" />
-                    </div>
+                   <form id="auth-form" class="form" novalidate>
+    <div class="field" id="field-nome" hidden>
+        <label class="label" for="auth-nome">Nome completo</label>
+        <input class="input" id="auth-nome" name="nome" type="text" autocomplete="name" placeholder="Como quer ser chamado?" />
+    </div>
 
-                    <div class="field">
-                        <label class="label" for="auth-senha">Chave de acesso</label>
-                        <input class="input" id="auth-senha" name="senha" type="password" autocomplete="current-password" required placeholder="••••••••" />
-                    </div>
+    <div class="field">
+        <label class="label" for="auth-email">E-mail</label>
+        <input class="input" id="auth-email" name="email" type="email" autocomplete="email" required placeholder="exemplo@email.com" />
+    </div>
 
-                    <button class="btn btn-primary btn-block" id="auth-submit" type="submit">Entrar no sistema</button>
-                </form>
+    <div class="field">
+        <label class="label" for="auth-senha">Chave de acesso</label>
+        <input class="input" id="auth-senha" name="senha" type="password" autocomplete="current-password" required placeholder="••••••••" />
+    </div>
+
+    <button class="btn btn-primary btn-block" id="auth-submit" type="submit">Entrar no sistema</button>
+</form>
+
 
                 <div class="card__footer">
                     <button id="auth-toggle" type="button" class="linklike">
-                        Criar nova crônica
+                        Criar nova conta
                     </button>
                 </div>
             </article>
